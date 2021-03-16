@@ -28,11 +28,16 @@ jobs:
         run: |
           make html
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: _build/html/
           publish_branch: gh-pages
-          destination_dir: ${GITHUB_REF##*/}
+          destination_dir: ${{ steps.extract_branch.outputs.branch }}
 
