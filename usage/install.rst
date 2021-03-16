@@ -2,4 +2,4 @@
 INSTALL
 *********************
 
-This is the Installation file and 2 commits has been made
+This is the Installation file and 4 commits has been made
