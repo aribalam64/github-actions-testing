@@ -2,8 +2,6 @@ name: doc-build
 
 on:
   push:
-    branches:
-    - master
 
   schedule:
     - cron: '1 0 * * 0'
@@ -36,5 +34,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: _build/html/
           publish_branch: gh-pages
-          # destination_dir: subdir
+          destination_dir: ${{ github.head_ref }}
 
