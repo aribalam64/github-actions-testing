@@ -1,0 +1,40 @@
+name: doc-build
+
+on:
+  pull_request:
+    branches:
+    - master
+
+  schedule:
+    - cron: '1 0 * * 0'
+
+jobs:
+  documentation_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install sphinx
+
+      - name: Build Sphinx Documentation
+        shell: bash -l {0}
+        run: |
+          make html
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _build/html/
+          publish_branch: gh-pages
+          destination_dir: ${{ github.event.number }}
+
