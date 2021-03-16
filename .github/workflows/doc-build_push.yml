@@ -34,5 +34,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: _build/html/
           publish_branch: gh-pages
-          destination_dir: ${{ github.head_ref }}
+          destination_dir: ${GITHUB_REF##*/}
 
