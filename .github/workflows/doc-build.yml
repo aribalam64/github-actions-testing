@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt install python3-sphinx
+          sudo apt-get install python3-sphinx
 
       - name: Build Sphinx Documentation
         shell: bash -l {0}
