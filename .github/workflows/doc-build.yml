@@ -1,0 +1,27 @@
+name: doc-build
+
+on:
+  push:
+    branches:
+    - master
+
+  schedule:
+    - cron: '1 0 * * 0'
+
+jobs:
+  documentation_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build Sphinx Documentation
+        shell: bash -l {0}
+        run: python setup.py build_docs
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/_build/html/
+          publish_branch: gh-pages
